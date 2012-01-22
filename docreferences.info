@@ -1,0 +1,12 @@
+name = Documentation References
+description = Provide links to reference materials on external websites.
+core = 7.x
+package = "Learn Drupal"
+project = "Documentation References"
+dependencies[] = ctools
+dependencies[] = features
+
+files[] = docreferences.install
+files[] = docreferences.module
+files[] = plugins/export_ui/docreferences_ctools_export_ui.inc
+files[] = plugins/export_ui/docreferences_export_ui.class.php
