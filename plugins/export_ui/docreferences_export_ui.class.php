@@ -1,6 +1,6 @@
 <?php
 /**
- * CTools export UI extending class. Slightly customized for Context.
+ * CTools export UI extending class. Slightly customized for Documentation and References.
  *
  * Based on: context/context_ui/export_ui/context_export_ui.class.php.
  */
@@ -36,26 +36,26 @@ class docreferences_export_ui extends ctools_export_ui {
 
   function list_build_row($item, &$form_state, $operations) {
     $name = $item->name;
-    // Add a row for packages.
-    $package = !empty($item->package) ? $item->package : t('< Unpackageged >');
-    if (!isset($this->rows[$package])) {
-      $this->rows[$package]['data'] = array();
-      $this->rows[$package]['data'][] = array('data' => check_plain($package), 'colspan' => 3, 'class' => array('package'));
-      $this->sorts["{$package}"] = $package;
+    // Add a row for categories.
+    $category = !empty($item->category) ? $item->category : t('< category missing >');
+    if (!isset($this->rows[$category])) {
+      $this->rows[$category]['data'] = array();
+      $this->rows[$category]['data'][] = array('data' => check_plain($category), 'colspan' => 3, 'class' => array('category'));
+      $this->sorts["{$category}"] = $category;
     }
 
     // Build row for each context item.
-    $this->rows["{$package}:{$name}"]['data'] = array();
-    $this->rows["{$package}:{$name}"]['class'] = !empty($item->disabled) ? array('ctools-export-ui-disabled') : array('ctools-export-ui-enabled');
-    $this->rows["{$package}:{$name}"]['data'][] = array(
-      'data' => check_plain($name) . "<div class='description'>" . check_plain($item->description) . "</div>",
+    $this->rows["{$category}:{$name}"]['data'] = array();
+    $this->rows["{$category}:{$name}"]['class'] = !empty($item->disabled) ? array('ctools-export-ui-disabled') : array('ctools-export-ui-enabled');
+    $this->rows["{$category}:{$name}"]['data'][] = array(
+      'data' => '<div class="title">' . check_plain($item->title) . '</div><div class="name">' . check_plain($name) . "</div><div class='description'>" . check_plain($item->description) . "</div>",
       'class' => array('ctools-export-ui-name')
     );
-    $this->rows["{$package}:{$name}"]['data'][] = array(
+    $this->rows["{$category}:{$name}"]['data'][] = array(
       'data' => check_plain($item->type),
       'class' => array('ctools-export-ui-storage')
     );
-    $this->rows["{$package}:{$name}"]['data'][] = array(
+    $this->rows["{$category}:{$name}"]['data'][] = array(
       'data' => theme('links', array(
         'links' => $operations,
         'attributes' => array('class' => array('links inline'))
@@ -63,29 +63,29 @@ class docreferences_export_ui extends ctools_export_ui {
       'class' => array('ctools-export-ui-operations'),
     );
 
-    // Sort by package, name.
-    $this->sorts["{$package}:{$name}"] = $package . $name;
+    // Sort by category, name.
+    $this->sorts["{$category}:{$name}"] = $category . $name;
     /*
-    // Add a row for packages (feature sets, "packages" in context module).
-    $package = !empty($item->package) ? $item->package : t('< No Package / Feature Set >');
-    if (!isset($this->rows[$package])) {
-      $this->rows[$package]['data'] = array();
-      $this->rows[$package]['data'][] = array('data' => check_plain($package), 'colspan' => 3, 'class' => array('package');
-      $this->sorts["{$package}"] = $package;
+    // Add a row for categories (feature sets, "categories" in context module).
+    $category = !empty($item->category) ? $item->category : t('< No Package / Feature Set >');
+    if (!isset($this->rows[$category])) {
+      $this->rows[$category]['data'] = array();
+      $this->rows[$category]['data'][] = array('data' => check_plain($category), 'colspan' => 3, 'class' => array('category');
+      $this->sorts["{$category}"] = $category;
     }
 
     // Build row for each context item.
-    $this->rows["{$package}:{$name}"]['data'] = array();
-    $this->rows["{$package}:{$name}"]['class'] = !empty($item->disabled) ? array('ctools-export-ui-disabled') : array('ctools-export-ui-enabled');
-    $this->rows["{$package}:{$name}"]['data'][] = array(
+    $this->rows["{$category}:{$name}"]['data'] = array();
+    $this->rows["{$category}:{$name}"]['class'] = !empty($item->disabled) ? array('ctools-export-ui-disabled') : array('ctools-export-ui-enabled');
+    $this->rows["{$category}:{$name}"]['data'][] = array(
       'data' => check_plain($name) . "<div class='description'>" . check_plain($item->description) . "</div>",
       'class' => array('ctools-export-ui-name')
     );
-    $this->rows["{$package}:{$name}"]['data'][] = array(
+    $this->rows["{$category}:{$name}"]['data'][] = array(
       'data' => check_plain($item->type),
       'class' => array('ctools-export-ui-storage')
     );
-    $this->rows["{$package}:{$name}"]['data'][] = array(
+    $this->rows["{$category}:{$name}"]['data'][] = array(
       'data' => theme('links', array(
         'links' => $operations,
         'attributes' => array('class' => array('links inline'))
@@ -93,8 +93,8 @@ class docreferences_export_ui extends ctools_export_ui {
       'class' => array('ctools-export-ui-operations'),
     );
 
-    // Sort by package, name.
-    $this->sorts["{$package}:{$name}"] = $package . $name;
+    // Sort by category, name.
+    $this->sorts["{$category}:{$name}"] = $category . $name;
 // */
     // */
   }
